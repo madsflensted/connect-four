@@ -1,0 +1,21 @@
+import Html exposing (..)
+import Html.Attributes exposing (..)
+
+import Center
+
+
+port title : String
+port title = "ELMCPH"
+
+
+(=>) = (,)
+
+
+main = Center.markdown "600px" content
+
+
+content = """
+
+{- INLINE_CONTENT -}
+
+"""
