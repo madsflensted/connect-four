@@ -16,11 +16,6 @@ main = Center.markdown "600px" content
 
 content = """
 
-# Elm Copenhagen
-
-## Introduction to Elm
-
-- [Connect Four](/ConnectFour.elm)
-- [Syntax](/syntax.elm)
+INLINE_CONTENT
 
 """
