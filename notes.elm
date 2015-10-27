@@ -1,3 +1,21 @@
+import Html exposing (..)
+import Html.Attributes exposing (..)
+
+import Center
+
+
+port title : String
+port title = "ELMCPH"
+
+
+(=>) = (,)
+
+
+main = Center.markdown "600px" content
+
+
+content = """
+
 # Elm Copenhagen
 Wedensday October 28. at Zendesk
 
@@ -44,6 +62,9 @@ f "hello"  -- > TYPE MISMATCH
 
 main = ...
 ```
+# Connect Four
+![Connect Four Game](/connect-four-small.jpg)
+
 # Getting started
 - [elm-lang.org/try](http://elm-lang.org/try)
 - [Install elm](http://elm-lang.org/install)
@@ -86,10 +107,6 @@ a = "Hello"
 - Html
 - Svg
 
-# Connect Four
-![Connect Four Game](/connect-four-small.jpg)
-
-
 # Basics
 ## Types
 - Basic types
@@ -125,3 +142,5 @@ a = "Hello"
 - Next Meetup
 - Ideas for Venue?
 - Ideas for group challenge
+
+"""

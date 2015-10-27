@@ -27,11 +27,9 @@ dot (x, y) =
   
   
 box (x, y) = 
-  [ oval 50 260 |> outlined defaultLine
-  , T.fromString "js" |> T.height 20 |> T.italic |> text
-    |> rotate (degrees -90) |> move (0, -60)
-  , [rect 100 40 |> outlined defaultLine
-    , T.fromString "View" |> T.height 20 |> text]
+  [ oval 50 260 |> outlined (dotted black)
+  , T.fromString "js" |> T.height 20 |> T.italic |> text |> rotate (degrees -90) |> move (0, -60)
+  , [rect 100 40 |> outlined defaultLine , T.fromString "View" |> T.height 20 |> text]
     |> group 
     |> move (0, -150)
   ]
