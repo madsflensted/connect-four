@@ -95,7 +95,16 @@ String.length "Hello World"
 - Functions
 
 ```elm
+plus x y = x + y
+plus 1 2 -- > 3
+1 `plus` 2 -- > 3
 
+plus` = plus 2
+plus` 3 -- > 5
+
+plus 1 (plus 2 3)
+plus 1 <| plus 2 3
+plus 2 3 |> plus 1
 ```
 
 # Exercises
