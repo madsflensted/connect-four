@@ -47,12 +47,13 @@ main = ...
 # Getting started
 - [elm-lang.org/try](http://elm-lang.org/try)
 - [Install elm](http://elm-lang.org/install)
-  - elm-reactor
-  - elm-repl
+  - elm reactor
+  - elm repl
+  - elm make
 - [share-elm.com](http://share-elm.com)
 
 
-# Blank screen
+# Past the Blank Screen
 - main
 ```elm
 main : Element
@@ -71,20 +72,59 @@ main = show "Hello World"
 import Debug
 main = show (Debug.log "Debug hello" "Hello world")
 ```
-- elm-repl
+
+# Basics
+- Literals - mostly what you would expect
+
 ```elm
-a = "Hello"
-"Hello" : String
+-- number literals interpreted as Float or Int depending on context
+5 // 2   -- > 2
+5 / 2    -- > 2.5
+5.5 // 2 -- > TYPE MISMATCH
+
+-- Not equal
+True /= False
+
+-- Strings use "" and are not lists, use String library
+String.length "Hello World"
+
+-- Tuples use (,) and can contain different types
+(1, "foo", {bar = 10}) -- tuples use (,) or (,,) or (,,,)
+```
+
+- Functions
+
+```elm
+
 ```
 
 # Exercises
 
 
-# Filling the screen
-- Graphics.Element
-- Graphics.Collage
-- Html
-- Svg
+# More ways to create views
+- [Graphics.Element](http://package.elm-lang.org/packages/elm-lang/core/2.1.0/Graphics-Element)
+```elm
+main = 
+    image 200 200 "https://avatars0.githubusercontent.com/u/4359353?v=3&s=200"
+```
+- [Graphics.Collage](http://package.elm-lang.org/packages/elm-lang/core/2.1.0/Graphics-Collage)
+```elm
+main =
+    collage 300 300 [ circle 40 |> filled Color.red ]
+```
+- [Html](http://package.elm-lang.org/packages/evancz/elm-html/4.0.1)
+```elm
+main = 
+    a [ (href "http://elm-lang.org/try")] [text "Try some elm!"]
+```
+- [Svg](http://package.elm-lang.org/packages/evancz/elm-svg/2.0.0)
+```elm
+main = 
+    svg
+      [ width "120", height "120", viewBox "0 0 120 120" ]
+      [ rect [ x "10", y "10", width "100", height "100", rx "15", ry "15" ] [] ]
+```
+To get above to work in elm-lang/try, you need to import the respective libraries (plus their `Attributes`) and use `exposing (..)` to bring all into scope.
 
 # Connect Four
 ![Connect Four Game](/connect-four-small.jpg)
@@ -115,6 +155,7 @@ a = "Hello"
 # Tools
 - elm make
 - elm package
+- [Packages](http://package.elm-lang.org/)
 
 # Practice
 - Elm examples
