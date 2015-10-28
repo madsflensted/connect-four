@@ -181,7 +181,7 @@ main = show <| showRelation <| relationTo 10 100
 
 """
   , """
-## Records, Type Alias and Scoping
+## Records and Type Alias
 
 ```elm
 type Relation = Friend | FriendOfFriend String | Stranger
@@ -197,7 +197,13 @@ lucy = Contact "Lucy" Friend  -- type constructor
 anna = Contact "Anna" (FriendOfFriend "Peter")
 bob = { anna | name <- "Bob" }  -- syntax changing in 0.16.0 !
 eric = Contact "Eric" Stranger
+```
+[Record documentation](http://elm-lang.org/guide/core-language#records) - but be aware of upcoming syntax changes
+"""
+  , """
+## Scoping
 
+```elm
 greeting contact =
   let prefix = 
       case contact.relation of
@@ -214,7 +220,6 @@ greeting contact =
 
 main = show <| List.map greeting [peter, anna, lucy, bob, eric]
 ```
-[Record documentation](http://elm-lang.org/guide/core-language#records) - but be aware of upcoming syntax changes
 
 """
   , """
@@ -232,8 +237,14 @@ name person =
 filter : List Contact -> Relation -> List Contact
 filter contacts relation = 
   ...
+```
 
--- TIP: inspect types by deliberatly breaking things
+"""
+  , """
+## Type TIP
+
+Inspect types by deliberatly breaking things
+```elm
 main = show <| 1 + "hello"
 ```
 
@@ -337,7 +348,7 @@ main = view <| foldl update emptyBoard testMoves
 # Closing part I
 """
   , """
-## More ways to create views and graphics
+## Views with Html
 - [Html](http://package.elm-lang.org/packages/evancz/elm-html/4.0.1)
 
 ```elm
@@ -347,7 +358,9 @@ import Html.Attributes exposing (..)
 main = 
     a [ (href "http://elm-lang.org/try") ] [ text "Try some elm!" ]
 ```
-
+"""
+  , """
+## Graphics with Svg
 - [Svg](http://package.elm-lang.org/packages/evancz/elm-svg/2.0.0)
 
 ```elm
@@ -391,7 +404,7 @@ npm install elm-test
 
 """
   , """
-# Next Meetups
+## Next Meetups
 - [Survey](https://docs.google.com/forms/d/1_QldT91-MtDp0P1C-ymlwGwrlvMFMcVcmHw2EgxZ8jM/viewanalytics)
 - Next Meetup
   - Wedensday November 25.
@@ -400,6 +413,7 @@ npm install elm-test
   - Idea for Venue?
   - Last Wednsday of the month?
 - Ideas for group challenges?
+  - Open a issue on our [Github repo](https://github.com/elmcph/elmcph/issues)
 
 """
   , """
@@ -407,7 +421,7 @@ npm install elm-test
 
 """
   , """
-# Group Challenge
+## Group Challenge
 ![Yatzy](/Yatzy_Score_card_with_dies.jpg)
 - [Scoring rules](https://en.wikipedia.org/wiki/Yatzy#Scoring)
 - Unit tests: https://github.com/jacobat/elm-yatzy
