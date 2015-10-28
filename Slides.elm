@@ -34,12 +34,12 @@ f "hello"  -- > TYPE MISMATCH
 """
   , """
 ## Reactive in Javascript
-![Javascript](/reactive-javascript-diagram-small.png)
+![Javascript](reactive-javascript-diagram-small.png)
 
 """
   , """
 ## Reactive in Elm
-![Elm](/reactive-elm-diagram-small.png)
+![Elm](reactive-elm-diagram-small.png)
 - The Signal type represents values that can change over time
 - The Task type represents async operations that may fail
 
@@ -278,7 +278,7 @@ main =
 """
   , """
 ## Connect Four
-![Connect Four Game](/connect-four-small.jpg)
+![Connect Four Game](connect-four-small.jpg)
 - Inspired by @wsmoak who did this [in Elixir](http://wsmoak.net/2015/10/22/connect-four-elixir-part-1.html)
 
 """
@@ -423,7 +423,7 @@ The source for this presentation can be found on [Github](https://github.com/mad
 """
   , """
 ## Group Challenge
-![Yatzy](/Yatzy_Score_card_with_dies.jpg)
+![Yatzy](Yatzy_Score_card_with_dies.jpg)
 - [Scoring rules](https://en.wikipedia.org/wiki/Yatzy#Scoring)
 - Unit tests: https://github.com/jacobat/elm-yatzy
 """
