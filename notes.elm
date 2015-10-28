@@ -117,7 +117,8 @@ String.length "Hello World"
 -- Tuples use (,) and can contain different types
 (1, "foo", {bar = 10}) -- or build using (,) or (,,) or (,,,) ...
 ```
-[Cheat sheet for Javascript'ers](http://elm-lang.org/docs/from-javascript)
+- [Cheat sheet for Javascript'ers](http://elm-lang.org/docs/from-javascript)
+- [Docs for core libraries](http://package.elm-lang.org/packages/elm-lang/core/2.1.0)
 
 ## Functions
 
@@ -230,7 +231,7 @@ between these two types:
 </code></p><br></div></div>
 
 
-# Exercises
+# Exercise
 
 ## Connect Four
 ![Connect Four Game](/connect-four-small.jpg)
