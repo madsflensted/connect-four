@@ -402,6 +402,7 @@ npm install elm-test
 - WIP: @bewatts is working on [Elm exercises on Exercism.io](https://github.com/bewatts/xelm)
   - Help out if you have some time!
 
+The source for this presentation can be found on [Github](https://github.com/madsflensted/connect-four)
 """
   , """
 ## Next Meetups
