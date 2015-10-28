@@ -16,20 +16,12 @@ type alias Board =
 
 maxColumn = 7
 maxRow = 6
-playerAcolor = blue
-playerBcolor = red
-emptyColor = white
-boardColor = orange
 
 emptyBoard = 
   Board (repeat maxColumn (Column (repeat maxRow Empty)))
 
-pieceSize = 90
-boardWidth = maxColumn * pieceSize
-boardHeight = maxRow * pieceSize
-pieceRadius = (pieceSize - 15) / 2
-
 -- View
+
 view : Board -> Element
 view board =
   flow right <| map viewColumn board.columns
@@ -38,32 +30,37 @@ viewColumn column =
   flow down <| map viewSlot column.slots
 
 viewSlot slot =  
-  let pieceColor piece = 
-    case slot of 
-       Empty -> emptyColor
-       A -> playerAcolor
-       B -> playerBcolor
+  let pieceSize = 90
+      pieceRadius = (pieceSize - 15) / 2
+      pieceColor piece = 
+        case slot of 
+           Empty -> white
+           A -> blue
+           B -> red
   in collage pieceSize pieceSize 
     [ circle pieceRadius |> filled (pieceColor slot)]
-    |> color boardColor
+    |> color orange
     
     
--- Play
-moves = [(A, 3), (B, 3), (A, 0), (B, 2), (A, 2), (B, 3)]
-
+-- Update
 update : (Slot, Int) -> Board -> Board
-update (player, column) board =
-  { board | columns <- List.indexedMap (updateColumn player column) board.columns }
+update move board =
+  { board | columns <- List.indexedMap (updateColumn move) board.columns }
   
-updateColumn player targetIndex index column =
-  if targetIndex /= index then
+updateColumn (player, inColumn) index column =
+  if inColumn /= index then
     column
   else
-    let (empty, rest) = List.partition (\slot -> slot == Empty) column.slots 
-        newrest = player :: rest
-        newempties = repeat (maxRow - (length newrest)) Empty
-    in Column (newempties `append` newrest)
+    player `dropIn` column
     
+dropIn player column =
+    let (empty, nonEmpty) = List.partition ((==) Empty) column.slots 
+        filled = player :: nonEmpty
+        empties = repeat (maxRow - (length filled)) Empty
+    in Column (empties `append` filled)
+
     
 -- Main
+moves = [(A, 3), (B, 3), (A, 0), (B, 2), (A, 2), (B, 3)]
+
 main = view <| foldl update emptyBoard moves

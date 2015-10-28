@@ -25,9 +25,11 @@ f "hello"  -- > TYPE MISMATCH
 ```
 - Functions cannot have side effects
 
-## Reactive
-- [Reactive in Javascript](/ReactiveGraph.elm)
-- [Reactive in Elm](/ReactiveElmGraph.elm)
+## Reactive in Javascript
+![Javascript](/reactive-javascript-diagram-small.png)
+
+## Reactive in Elm
+![Elm](/reactive-elm-diagram-small.png)
 - The Signal type represents values that can change over time
 - The Task type represents async operations that may fail
 
@@ -149,6 +151,7 @@ showRelation relation =
 
 main = show <| showRelation <| relationTo 10 100
 ```
+- All codes paths must return the same Type
 
 ## Records, Type Alias and Scoping
 
@@ -212,15 +215,7 @@ between these two types:
     String
 </code></p><br></div></div>
 
-
-# Exercise
-
-## Connect Four
-![Connect Four Game](/connect-four-small.jpg)
-
-
-# Closing part I
-## More ways to create views
+## Views and Drawing
 - [Graphics.Element](http://package.elm-lang.org/packages/elm-lang/core/2.1.0/Graphics-Element)
 ```elm
 main = 
@@ -232,13 +227,87 @@ main =
 main =
     collage 300 300 [ circle 40 |> filled Color.red ]
 ```
-- [Html](http://package.elm-lang.org/packages/evancz/elm-html/4.0.1)
+
+# Exercise
+
+## Connect Four
+![Connect Four Game](/connect-four-small.jpg)
+- Inspired by @wsmoak who did this [in Elixir](http://wsmoak.net/2015/10/22/connect-four-elixir-part-1.html)
+
+## Model
 ```elm
+import Color exposing (..)
+import Graphics.Collage exposing (..)
+import Graphics.Element exposing (..)
+import List exposing (..)
+
+-- Model
+-- fill in
+```
+- using union `type` and `type alias` define a model for Slot, Column and Board
+- create defintion of an empty board
+  - board has 6 slots per column, and 7 columns in total
+  - tip: look at `repeat` from the [List module](http://package.elm-lang.org/packages/elm-lang/core/2.1.0/List)
+- check that code compiles
+
+## View
+```elm
+-- View
+view : Board -> Element
+view board =
+  flow right <| map viewColumn board.columns
+  
+viewColumn : Column -> Element
+viewColumn column =
+  flow down <| map viewSlot column.slots
+
+viewSlot : Slot -> Element
+-- fill in
+
+```
+- I use a size for each slot of 90 x 90 pixels
+- define a couple of testSlots
+- test your code using 
+```elm
+main = viewSlot testSlot
+-- and
+main = view emptyBoard
+```
+
+## Update
+```elm
+-- Update
+update : (Slot, Int) -> Board -> Board
+update (slot, column) board =
+  -- fill in
+
+-- Main
+testMoves = [(A, 3), (B, 3), (A, 0), (B, 2), (A, 2), (B, 3)]
+
+main = view <| foldl update emptyBoard testMoves
+```
+- break down in update of `board`, `column` and `slot`
+- you could look at `List.indexedMap` to help finding correct column
+- remember data is immutable, so you have to transform existing data into new data, even if unchanged.
+
+# Closing part I
+## More ways to create views and graphics
+- [Html](http://package.elm-lang.org/packages/evancz/elm-html/4.0.1)
+
+```elm
+import Html exposing (..)
+import Html.Attributes exposing (..)
+
 main = 
     a [ (href "http://elm-lang.org/try") ] [ text "Try some elm!" ]
 ```
+
 - [Svg](http://package.elm-lang.org/packages/evancz/elm-svg/2.0.0)
+
 ```elm
+import Svg exposing (..)
+import Svg.Attributes exposing (..)
+
 main = 
     svg
       [ width "120", height "120", viewBox "0 0 120 120" ]
@@ -252,7 +321,7 @@ main =
         ] [] 
       ]
 ```
-To get above to work in elm-lang/try, you need to import the respective libraries (plus their `Attributes`) and use `exposing (..)` to bring all into scope.
+Simple DSL's, both take two arguments: list of attributes and list of sub elements
 
 ## Tools
 - [Package repository](http://package.elm-lang.org/)
@@ -267,7 +336,7 @@ npm install elm-test
 ## Practice
 - [Elm examples](http://elm-lang.org/examples)
 - [Elm challenges](https://github.com/pdamoc/elmChallenges)
-- WIP: [Elm exercises on Exercism.io](https://github.com/bewatts/xelm)
+- WIP: @bewatts is working on [Elm exercises on Exercism.io](https://github.com/bewatts/xelm)
   - Help out if you have some time!
 
 # Next Meetups
