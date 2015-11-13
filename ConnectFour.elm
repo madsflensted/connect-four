@@ -8,26 +8,24 @@ import List exposing (..)
 -- Model
 type Slot = Empty | A | B
 
-type alias Column = 
-  { slots : List Slot }
+type alias Column = List Slot
 
-type alias Board = 
-  { columns : List Column }
+type alias Board = List Column
 
 maxColumn = 7
 maxRow = 6
 
 emptyBoard = 
-  Board (repeat maxColumn (Column (repeat maxRow Empty)))
+  repeat maxColumn (repeat maxRow Empty)
 
 -- View
 
 view : Board -> Element
 view board =
-  flow right <| map viewColumn board.columns
+  flow right <| map viewColumn board
   
 viewColumn column =
-  flow down <| map viewSlot column.slots
+  flow down <| map viewSlot column
 
 viewSlot slot =  
   let pieceSize = 90
@@ -45,7 +43,7 @@ viewSlot slot =
 -- Update
 update : (Slot, Int) -> Board -> Board
 update move board =
-  { board | columns <- List.indexedMap (updateColumn move) board.columns }
+  List.indexedMap (updateColumn move) board
   
 updateColumn (player, inColumn) index column =
   if inColumn /= index then
@@ -54,10 +52,10 @@ updateColumn (player, inColumn) index column =
     player `dropIn` column
     
 dropIn player column =
-    let (empty, nonEmpty) = List.partition ((==) Empty) column.slots 
+    let (empty, nonEmpty) = List.partition ((==) Empty) column
         filled = player :: nonEmpty
         empties = repeat (maxRow - (length filled)) Empty
-    in Column (empties `append` filled)
+    in empties `append` filled
 
     
 -- Main
