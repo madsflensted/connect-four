@@ -8,9 +8,9 @@ import Mouse
 import Signal
 
 -- Model
-type Turn = PlayerA | PlayerB
+type Player = A | B
 
-type Slot = Empty | A | B
+type Slot = Empty | Piece Player
 
 type alias Column = List Slot
 
@@ -18,7 +18,7 @@ type alias Board = List Column
 
 type alias Model =
   { board: Board
-  , turn : Turn
+  , turn : Player
   }
 
 maxColumn = 7
@@ -30,7 +30,7 @@ emptyBoard =
 
 startModel =
   { board = emptyBoard
-  , turn = PlayerA
+  , turn = A
   }
 
 -- View
@@ -47,8 +47,8 @@ viewSlot slot =
       pieceColor piece =
         case slot of
            Empty -> white
-           A -> blue
-           B -> red
+           Piece A -> blue
+           Piece B -> red
   in collage pieceSize pieceSize
     [ circle pieceRadius |> filled (pieceColor slot)]
     |> color orange
@@ -62,28 +62,25 @@ update column model =
       , turn <- nextPlayer model.turn
   }
 
+updateColumn : (Player, Int) -> Int -> Column -> Column
 updateColumn (player, inColumn) index column =
   if inColumn /= index then
     column
   else
     player `dropIn` column
 
+dropIn : Player -> Column -> Column
 dropIn player column =
     let (empty, nonEmpty) = List.partition ((==) Empty) column
-        filled = (playerToSlot player) :: nonEmpty
+        filled = Piece player :: nonEmpty
         empties = repeat (maxRow - (length filled)) Empty
     in empties `append` filled
 
-playerToSlot player =
-  case player of
-    PlayerA -> A
-    PlayerB -> B
-
-nextPlayer : Turn -> Turn
+nextPlayer : Player -> Player
 nextPlayer turn =
   case turn of
-    PlayerA -> PlayerB
-    PlayerB -> PlayerA
+    A -> B
+    B -> A
 
 -- Signals
 
@@ -96,6 +93,5 @@ dropPieceAt =
   Signal.sampleOn Mouse.clicks Mouse.x
 
 -- Main
-testMoves = [(A, 3), (B, 3), (A, 0), (B, 2), (A, 2), (B, 3)]
 
 main = Signal.map view <| Signal.foldp update startModel <| Signal.map toColumnIndex dropPieceAt
