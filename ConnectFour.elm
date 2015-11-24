@@ -58,8 +58,8 @@ viewSlot slot =
 update : Int -> Model -> Model
 update column model =
   { model |
-        board <- List.indexedMap (updateColumn (model.turn, column)) model.board
-      , turn <- nextPlayer model.turn
+        board = List.indexedMap (updateColumn (model.turn, column)) model.board
+      , turn = nextPlayer model.turn
   }
 
 updateColumn : (Player, Int) -> Int -> Column -> Column
@@ -72,7 +72,10 @@ updateColumn (player, inColumn) index column =
 dropIn : Player -> Column -> Column
 dropIn player column =
     let (empty, nonEmpty) = List.partition ((==) Empty) column
-        filled = Piece player :: nonEmpty
+        filled = 
+          case empty of
+            [] -> nonEmpty
+            _  -> Piece player :: nonEmpty
         empties = repeat (maxRow - (length filled)) Empty
     in empties `append` filled
 
